@@ -21,8 +21,9 @@ data = preprocessing.culturalMetrics
 # df = df.dropna()
 # df = df[df.country != "Finland"]
 # print(countryList)
-external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-app = dash.Dash(__name__,external_stylesheets= external_stylesheets)
+# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+app = dash.Dash(__name__)
+server = app.server
 
 
 backGroundColorOption = html.Div(id = "background",children=[
