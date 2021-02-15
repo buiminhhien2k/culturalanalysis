@@ -23,6 +23,7 @@ This project is inspired by from one of my studying assignment with Lapland Univ
 
 **What can be better:**
 - I want to develop this project as a website with heroku server.
+- I want to develop more front-end fucntions with JavaScript.
 -------------------------------------------------------
 **How to use:** *prerequisite: you got Python3 and git installed in your computer* 
 - initiate a git environment and in your local machine (Laptop/PC):
