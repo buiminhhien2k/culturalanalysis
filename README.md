@@ -21,6 +21,9 @@ This project is inspired by from one of my studying assignment with Lapland Univ
 - Dash and Plotly package to create an interactive web-based **dashboard**.
 - **CSS** to beautify the website.
 
+**What can be better:**
+- I want to develop this project as a website with heroku server.
+
 **How to use:** *prerequisite: you got Python and git installed in your computer* 
 - initiate a git environment and in your local machine (Laptop/PC):
   - `git init`
