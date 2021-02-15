@@ -1,4 +1,4 @@
-# Cultural Index analysis
+# Cultural Index analysis <still being developed>
 This project is inspired by from one of my studying assignment with Lapland University of Applied Science (my home university)
 
 **Data and Sources:**
