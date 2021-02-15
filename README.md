@@ -21,5 +21,15 @@ This project is inspired by from one of my studying assignment with Lapland Univ
 - Dash and Plotly package to create an interactive web-based **dashboard**.
 - **CSS** to beautify the website.
 
-**How to use:**
-- clone this remote to your local machine (Laptop/PC): ``
+**How to use:** *prerequisite: you got Python and git installed in your computer* 
+- initiate a git environment and in your local machine (Laptop/PC):
+  - `git init`
+- add this remote repository to your git environment:
+  - HTTPS: `git remote add https://github.com/buiminhhien2k/culturalanalysis.git`
+  - SSH `git remote add git@github.com:buiminhhien2k/culturalanalysis.git`
+- clone this remote to your local machine (Laptop/PC): 
+  - HTTPS: `git clone https://github.com/buiminhhien2k/culturalanalysis.git`
+  - SSH `git clone git@github.com:buiminhhien2k/culturalanalysis.git`
+- move to culturalanalysis folder `cd culturalanalysis`
+- install `dash` package `pip install dash`
+- run file `app.py` then open your web browser and go to http://127.0.0.1:8050/ to see the product.
