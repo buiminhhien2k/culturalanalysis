@@ -18,13 +18,13 @@ This project is inspired by from one of my studying assignment with Lapland Univ
 
 **What I learn:**
 - **Data manipulation methods** with DataFrame in Python Pandas.
-- Dash and Plotly package to create an interactive web-based **dashboard**.
+- **Dash** and **Plotly** Python ypackage to create an interactive web-based **dashboard**.
 - **CSS** to beautify the website.
 
 **What can be better:**
 - I want to develop this project as a website with heroku server.
-
-**How to use:** *prerequisite: you got Python and git installed in your computer* 
+-------------------------------------------------------
+**How to use:** *prerequisite: you got Python3 and git installed in your computer* 
 - initiate a git environment and in your local machine (Laptop/PC):
   - `git init`
 - add this remote repository to your git environment:
