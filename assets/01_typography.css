@@ -1,0 +1,49 @@
+.background-setting{
+    grid-area:"bs";
+    width: 160px;
+}
+.country-setting{
+    grid-area:"cs";
+    width: 160px;
+}
+.country-dropdown{
+    grid-area:"cd";
+    width: 160px;
+}
+.title-options{
+    color: azure;
+    margin: 4px 0px;
+
+}
+#option-setting{
+    display: grid;
+    grid-gap: 10px;
+    grid-template-areas:
+    'cd cs bs';
+    /* width: 1000px; */
+    margin: auto;
+    width:500px;
+    left:50%;
+    /* top:50%; */
+    margin-top :-45px;
+
+}
+.intro {
+    margin: auto;
+    width:100%;
+    background-color: chocolate;
+    color: azure;
+    padding-bottom: 50px;
+}
+#subtitle{
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
+
+#core-map, #core-table {
+    max-width: 1000px;
+    /* position: relative; */
+    /* margin-left: 50% ;
+    margin-right: 50% ; */
+    margin: auto;
+}
