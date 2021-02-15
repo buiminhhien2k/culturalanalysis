@@ -126,7 +126,7 @@ app.layout = html.Div(children=[
 )
 def updateMap(country,backgroundMode, countryColor,df = data):
     borderColor = [1]*df.shape[0]
-    colorMap = 'totalDiff'
+    colorMap = 'Total different'
 
     metricsList = [ 'pdi', 'idv', 'mas', 'uai', 'ltowvs', 'ivr']
     df[colorMap] = (df[metricsList]-df[df.country == country][metricsList].values).apply(lambda row: row.abs()).sum(axis=1)
@@ -139,7 +139,7 @@ def updateMap(country,backgroundMode, countryColor,df = data):
         range_color=[df[colorMap].min(),df[colorMap].max()],
         hover_data=["country","idv","mas","pdi",'uai', 'ltowvs', 'ivr'],
         color_continuous_scale = countryColor,
-        labels={colorMap:'Total different'}, 
+        # labels={colorMap:'Total different'}, 
         # template = 'xgridoff',
         
     )
