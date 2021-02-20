@@ -35,15 +35,14 @@
     color: azure;
     padding-bottom: 50px;
 }
-#subtitle{
-    margin-top: -15px;
-    margin-bottom: 15px;
-}
 
-#core-map, #core-table {
+#core-content{
     max-width: 1000px;
     /* position: relative; */
-    /* margin-left: 50% ;
-    margin-right: 50% ; */
+    /* margin-left: 30%; */
+    /* margin-right: 50% ; */
     margin: auto;
 }
+/* #core-table {
+    margin: auto;
+} */
