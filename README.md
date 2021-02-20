@@ -1,4 +1,6 @@
-# Cultural Index analysis
+# Cultural Index analysis 
+\*still being developed\* 
+
 This project is inspired by from one of my studying assignment with Lapland University of Applied Science (my home university)
 
 **Data and Sources:**
@@ -17,12 +19,13 @@ This project is inspired by from one of my studying assignment with Lapland Univ
 - You can change the color of the background in the map.
 
 **What I learn:**
-- **Data manipulation methods** with DataFrame in Python Pandas.
-- **Dash** and **Plotly** Python ypackage to create an interactive web-based **dashboard**.
-- **CSS** to beautify the website.
+- **Data manipulation methods** with DataFrame in Python Pandas. (in `preprocessing.py` file)
+- **Dash** and **Plotly** Python packages to create an interactive web-based **dashboard**. (in `app.py` file)
+- **CSS** to beautify the website. (`assets` folder)
 
 **What can be better:**
 - I want to develop this project as a website with heroku server.
+- I want to develop more front-end fucntions with JavaScript.
 -------------------------------------------------------
 **How to use:** *prerequisite: you got Python3 and git installed in your computer* 
 - initiate a git environment and in your local machine (Laptop/PC):
