@@ -1,0 +1,29 @@
+
+.intro {
+    display: grid;
+    grid-template-areas:
+    'ih sb';
+
+}
+#info-head{
+    grid-area: 'ih';
+    text-align: left;
+    margin-left: 2rem;
+    max-width: 800px;
+    font-size: x-large;
+
+}
+#side-bar{
+    grid-area: "sb";
+    text-align: right;
+    margin-right: 2rem;
+    margin-top: 1rem;
+}
+.nav-link{
+    margin-right: 0.5rem;
+    font-size: x-large;
+}
+#subtitle{
+    margin-top: -15px;
+    margin-bottom: 15px;
+}
