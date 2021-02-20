@@ -2,7 +2,8 @@ import dash
 import dash_table
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output
+import dash_bootstrap_components as dbc
+from dash.dependencies import Input, Output,State
 import plotly as py
 import plotly.express as px
 import pandas as pd
@@ -25,7 +26,24 @@ data = preprocessing.culturalMetrics
 # external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 app = dash.Dash(__name__)
 server = app.server
+# app.scripts.config.serve_locally = False
 
+sidebarObject = html.Div(
+  id = 'side-bar'
+  , children = [
+    #   html.H1("Sidebar"),
+      dbc.Nav(
+        children= [
+            dbc.NavLink("Home", href = "/", active = 'exact'),
+            dbc.NavLink("About", href = "/about", active = 'exact'),
+            dbc.NavLink("Sources", href = "/sources", active = 'exact'),
+            dbc.NavLink("Contact", href = "https://www.linkedin.com/in/hien-minh-bui-311237104/", active = 'exact',target= '_blank')
+            ],
+        vertical = False,
+        pills= True
+    )    
+  ]
+)
 
 backGroundColorOption = html.Div(className = "background-setting",children=[
     html.P("Background Color:",className = "title-options"),
@@ -90,15 +108,20 @@ countryDropDown = html.Div(
     
 
 app.layout = html.Div(children=[
-    html.Center(
+    dcc.Location(id = 'url'),
+
+    html.Div(
         className = "intro",
         children=[
-            html.H1(children='Cultural Difference from your country',),
-            html.Div(id= "subtitle",
-                children="Dash: A web application framework for Python."),
+            html.Div( id = "info-head",
+                children=[
+                    html.H1(id='title', children='Cultural Difference Analysis project',),
+                    html.P(id= "subtitle",children="This analysis will tell you about how other worldwide countries are different from your selected country")
+                ]
+            ),
+            sidebarObject
         ]
     ),
-
 
     html.Div(
         id = 'option-setting',
@@ -108,12 +131,16 @@ app.layout = html.Div(children=[
             backGroundColorOption
         ]
     ),
-    # html.Br(),
 
-    dcc.Graph(id='core-map'),
-    dash_table.DataTable(id = "core-table")
-    # columns=[ 'pdi', 'idv', 'mas', 'uai', 'ltowvs', 'ivr'],)
-])
+    html.Div(id= 'core-content',
+        children = [
+            html.Div(id = 'text-content', children=[]),
+            dcc.Graph(id='core-map'),
+            dash_table.DataTable(id = "core-table")
+            ]
+        )
+    ]
+)
 
 
 @app.callback(
@@ -125,7 +152,7 @@ app.layout = html.Div(children=[
     ]
 )
 def updateMap(country,backgroundMode, countryColor,df = data):
-    borderColor = [1]*df.shape[0]
+    # borderColor = [1]*df.shape[0]
     colorMap = 'Total different'
 
     metricsList = [ 'pdi', 'idv', 'mas', 'uai', 'ltowvs', 'ivr']
@@ -171,8 +198,27 @@ def create_table(country, table = data):
     columnsList = [{"name":eachColumn, "id":eachColumn} for eachColumn in table_sorted.columns]
     # print(table_sorted.to_dict('records'))
     return columnsList,table_sorted.to_dict('records')
-    
-    
+
+@app.callback(
+    Output(component_id = 'text-content', component_property = 'children'),
+    [Input(component_id = 'url', component_property = 'pathname')]
+)
+def content_for_url(pathname):
+    if pathname == '/' or pathname == "/home":
+        return [html.P('Display some text for Home')]
+    if pathname == "/about":
+        return [html.P('Display some text for about')]
+    if pathname == "/sources":
+        return [html.P('Display some text for source')]
+
+
+    return dbc.Jumbotron(
+        [
+            html.H1("404: Not found"),
+            html.Hr(),
+            html.P("your url doesn't exist")
+        ]
+    )
     # pass
 if __name__ == '__main__':
     app.run_server(debug=True)
