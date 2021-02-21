@@ -9,7 +9,8 @@ import plotly.express as px
 import pandas as pd
 import numpy as np
 import sys
-import plotly.graph_objects as go
+# import plotly.graph_objects as go
+from sklearn.cluster import KMeans
 
 sys.path.insert(0,".")
 import preprocessing 
@@ -106,6 +107,21 @@ countryDropDown = html.Div(
     ]
 )
     
+legendMode = html.Div(
+    className = 'legend-mode',
+    children=[
+        html.P('Display Mode:', className='title-options'),
+        dcc.Dropdown(
+            id= 'legend',
+            className='legend-mode',
+            options=[
+                {"label":'Continuous',"value":'Continuous'},
+                {"label":'Clustered',"value":'Clustered'}],
+            value= 'Continuous',
+            clearable=False
+        )
+    ]
+)
 
 app.layout = html.Div(children=[
     dcc.Location(id = 'url'),
@@ -127,8 +143,9 @@ app.layout = html.Div(children=[
         id = 'option-setting',
         children=[
             countryDropDown,
+            legendMode,
             countryColorOption,
-            backGroundColorOption
+            backGroundColorOption,
         ]
     ),
 
@@ -141,35 +158,58 @@ app.layout = html.Div(children=[
         )
     ]
 )
+def clusterData(dataframe, newCol, valueCol, countryExcept, clusterNum = 5):
+    #return new dataframe
+    model = KMeans(n_clusters=clusterNum, random_state=0)
+    dataframe[newCol] = "0"
+    countryExceptRow = dataframe[dataframe['country'] == countryExcept]
+    dataframe = dataframe[dataframe['country'] != countryExcept]
+    dataframe[newCol] = model.fit(dataframe[valueCol].to_frame()).labels_
+    data= dataframe.groupby(newCol)[valueCol].mean().sort_values()
+    transformedIndex = {}
+    for i in range(clusterNum):
+        transformedIndex[data.index[i]]= str(i)
 
+    dataframe.replace(transformedIndex,inplace= True)
+    dataframe = dataframe.append(countryExceptRow)
 
+    return dataframe.sort_values(newCol)
 @app.callback(
     Output(component_id = "core-map", component_property = 'figure'),
     [
         Input(component_id = 'country-name', component_property= 'value'),
         Input(component_id='background-color',component_property='value'),
-        Input(component_id='country-color',component_property='value')
+        Input(component_id='country-color',component_property='value'),
+        Input(component_id='legend',component_property='value')
     ]
 )
-def updateMap(country,backgroundMode, countryColor,df = data):
+def updateMap(country,backgroundMode, countryColor,legendMode ,df = data):
     # borderColor = [1]*df.shape[0]
     colorMap = 'Total different'
-
     metricsList = [ 'pdi', 'idv', 'mas', 'uai', 'ltowvs', 'ivr']
     df[colorMap] = (df[metricsList]-df[df.country == country][metricsList].values).apply(lambda row: row.abs()).sum(axis=1)
     df = df.dropna().round(2)
+    if legendMode == "Clustered":
+        groupColumn = "Clustered Group"
+        df = clusterData(df,groupColumn, "Total different",country)
+        colorMap = groupColumn
     fig = px.choropleth(
         data_frame=df,
         locations="country",
         locationmode="country names" ,
-        color=colorMap,
+        color=colorMap ,
         range_color=[df[colorMap].min(),df[colorMap].max()],
         hover_data=["country","idv","mas","pdi",'uai', 'ltowvs', 'ivr'],
         color_continuous_scale = countryColor,
+        # color_discrete_sequence = ['blue','red','green','purple','orange'],
         # labels={colorMap:'Total different'}, 
         # template = 'xgridoff',
         
     )
+    # if legendMode == "Continuous":
+    #     fig.update_geos (
+    #         countrycolor = 'palegoldenrod',
+    #     )
     fig.update_layout(
         autosize=True,
         margin={"r":10,"t":10,"l":10,"b":10},
@@ -208,6 +248,7 @@ def content_for_url(pathname):
         return [dcc.Markdown('''
             This project is inspired and developed more from a subject, Data Analytics 3, 
             I studied in Lapland University of Applied Sciences, also my home university.
+
             The original project is to work with **M Language** and **DAX** in **Power BI** to get used to analyzing data, 
             but I want to make the dashboard more interesting and accessible by 
             redoing them as my personal project with Python Dash plotly framework.
@@ -224,7 +265,7 @@ def content_for_url(pathname):
         1. Fill the missing cultural index by calculating the adjacent/neigbour countries to it.
         2. Calculate the difference by add up all the absolute of difference of each index in each country 
         and each index in your chosen country
-        3. Apply clustering method to define the countries group having the smallest difference 
+        3. Apply Machine Learning clustering method (KMeans algorithm) to define the countries group having the smallest difference 
         from you chosen one.
             ''')]
     if pathname == "/sources":
