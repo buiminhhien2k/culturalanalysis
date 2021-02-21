@@ -10,6 +10,10 @@
     grid-area:"cd";
     width: 160px;
 }
+.legend-mode{
+    grid-area:"lm";
+    width: 160px;
+}
 .title-options{
     color: azure;
     margin: 4px 0px;
@@ -19,14 +23,10 @@
     display: grid;
     grid-gap: 10px;
     grid-template-areas:
-    'cd cs bs';
-    /* width: 1000px; */
+    'cd cs bs lm';
     margin: auto;
-    width:500px;
-    left:50%;
-    /* top:50%; */
     margin-top :-45px;
-
+    width: fit-content;
 }
 .intro {
     margin: auto;
