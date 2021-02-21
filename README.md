@@ -15,6 +15,7 @@ This project is inspired by from one of my studying assignment with Lapland Univ
 
 **Product:**
 - You can choose your country and see the countries having the closest culture to your chosen one (Map shows all countries in the dataset and Table shows top 5 countries)
+- You can choose the display mode: continuous or clustered for the legend of of the map.
 - You can change the color of the countries in the map.
 - You can change the color of the background in the map.
 
@@ -22,10 +23,11 @@ This project is inspired by from one of my studying assignment with Lapland Univ
 - **Data manipulation methods** with DataFrame in Python Pandas. (in `preprocessing.py` file)
 - **Dash** and **Plotly** Python packages to create an interactive web-based **dashboard**. (in `app.py` file)
 - **CSS** to beautify the website. (`assets` folder)
+- **Applied Machine Learning**, I used KMeans function, a **clustering algorithm** to cluster the country 
+that based on the cultural difference.
 
 **What can be better:**
 - I want to develop this project as a website with heroku server.
-- I want to develop more front-end fucntions with JavaScript.
 -------------------------------------------------------
 **How to use:** *prerequisite: you got Python3 and git installed in your computer* 
 - initiate a git environment and in your local machine (Laptop/PC):
