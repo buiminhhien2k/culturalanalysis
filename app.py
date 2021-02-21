@@ -205,11 +205,44 @@ def create_table(country, table = data):
 )
 def content_for_url(pathname):
     if pathname == '/' or pathname == "/home":
-        return [html.P('Display some text for Home')]
+        return [dcc.Markdown('''
+            This project is inspired and developed more from a subject, Data Analytics 3, 
+            I studied in Lapland University of Applied Sciences, also my home university.
+            The original project is to work with **M Language** and **DAX** in **Power BI** to get used to analyzing data, 
+            but I want to make the dashboard more interesting and accessible by 
+            redoing them as my personal project with Python Dash plotly framework.
+            '''
+        )]
     if pathname == "/about":
-        return [html.P('Display some text for about')]
+        return [dcc.Markdown('''
+        I used callback function in Plotly/Dash framework to create interactive graphs 
+        and CSS and Bootstraps to design layout of the websites. I also used Clustering algorithm to
+        group the countries based on the cultural difference index.
+            
+        ** How I calculate the cultural difference index:**
+
+        1. Fill the missing cultural index by calculating the adjacent/neigbour countries to it.
+        2. Calculate the difference by add up all the absolute of difference of each index in each country 
+        and each index in your chosen country
+        3. Apply clustering method to define the countries group having the smallest difference 
+        from you chosen one.
+            ''')]
     if pathname == "/sources":
-        return [html.P('Display some text for source')]
+        return [dcc.Markdown('''
+        ** Data Sources:**
+
+        1. Six metrics to measure a culture of a country: https://geerthofstede.com/research-and-vsm/dimension-data-matrix/
+            - Description: containing 6 metrics indicate the culture of a countries \[`pdi`, `idv`, `mas`, `uai`, `ltowvs`, `ivr`\]
+        2. Country and its bordering countries: https://en.wikipedia.org/wiki/List_of_countries_and_territories_by_land_borders
+            - Description: listing all the adjacent/neighbouring countries of a country.
+            
+        ** Document source:**
+
+        1. Dash plotly official website/document: https://dash.plotly.com/
+            - Description: I have all my neccessary information to build this project through this source.
+        2. Bootstrap with dash plotly official website/document: https://dash-bootstrap-components.opensource.faculty.ai/docs/
+            - Description: I learned about Bootstrap fundamental manipulation to layout the website.
+            ''')]
 
 
     return dbc.Jumbotron(
