@@ -153,6 +153,10 @@ app.layout = html.Div(children=[
         children = [
             html.Div(id = 'text-content', children=[]),
             dcc.Graph(id='core-map'),
+            html.I(id= 'note'),
+            html.Br(),
+            html.Hr(),
+            html.H3(id = 'core-table-title'),
             dash_table.DataTable(id = "core-table")
             ]
         )
@@ -220,15 +224,25 @@ def updateMap(country,backgroundMode, countryColor,legendMode ,df = data):
     else:
         fig.update_layout(geo_bgcolor='#FFFAF0')
     return fig
+@app.callback(
+    Output(component_id='note',component_property='children'),    
+    Input(component_id='legend',component_property='value')
+)
+def uploadNote(legendMode):
+    if legendMode == "Clustered":
+        return "The higher number of the group, the more different that group is to your selected country"
+    return ""
 
 @app.callback(
     [
+        Output(component_id = 'core-table-title', component_property= 'children'),
         Output(component_id = 'core-table', component_property= 'columns'),
         Output(component_id = 'core-table', component_property= 'data')
     ],
     Input(component_id = 'country-name', component_property= 'value')
 )
 def create_table(country, table = data):
+    title = "Top 5 countries having the most similar cultures to " + country
     metricsList = [ 'pdi', 'idv', 'mas', 'uai', 'ltowvs', 'ivr']
     table['Total different'] = (table[metricsList]-table[table.country == country][metricsList].values).apply(lambda row: row.abs()).sum(axis=1)
     table = table.dropna().round(2)
@@ -237,7 +251,7 @@ def create_table(country, table = data):
     table_sorted = table_sorted.head(6)[1:]
     columnsList = [{"name":eachColumn, "id":eachColumn} for eachColumn in table_sorted.columns]
     # print(table_sorted.to_dict('records'))
-    return columnsList,table_sorted.to_dict('records')
+    return title, columnsList, table_sorted.to_dict('records')
 
 @app.callback(
     Output(component_id = 'text-content', component_property = 'children'),
@@ -293,6 +307,5 @@ def content_for_url(pathname):
             html.P("your url doesn't exist")
         ]
     )
-    # pass
 if __name__ == '__main__':
     app.run_server(debug=True)
